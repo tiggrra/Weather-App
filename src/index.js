@@ -61,3 +61,19 @@ function showPosition(position) {
     let apiUrlCurrent = `${apiEndpointCurrent}?lat=${latitude}&lon=${longitude}&units=${units}&appid=${apiKey}`;
     axios.get(apiUrlCurrent).then(displayWeather);
 }
+
+// search form response
+
+let searchCity = document.querySelector(".search-input");
+searchCity.addEventListener("submit", displayCityAndWeather);
+
+function displayCityAndWeather(event) {
+    event.preventDefault();
+        
+    let city = document.querySelector("#search-city").value;
+    let apiKey = "01bc9da346c1591ec92736f4f11269b6";
+    let apiEndpointCurrent = "https://api.openweathermap.org/data/2.5/weather";
+    let units = "metric";
+    let apiUrlCurrent = `${apiEndpointCurrent}?q=${city}&units=${units}&appid=${apiKey}`;
+    axios.get(apiUrlCurrent).then(displayWeather);
+        }
