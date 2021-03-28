@@ -41,3 +41,23 @@ function displayWeather(response) {
     let dispWind = document.querySelector("#wind");
     dispWind.innerHTML = (`${celsiusWind}`);
 }
+
+// current location button response
+
+let getLocationButton = document.querySelector("#current-location-button");
+getLocationButton.addEventListener("click", getNavigation)
+
+function getNavigation(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+function showPosition(position) {
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+    let apiKey = "01bc9da346c1591ec92736f4f11269b6";
+    let apiEndpointCurrent = "https://api.openweathermap.org/data/2.5/weather";
+    let units = "metric";
+    let apiUrlCurrent = `${apiEndpointCurrent}?lat=${latitude}&lon=${longitude}&units=${units}&appid=${apiKey}`;
+    axios.get(apiUrlCurrent).then(displayWeather);
+}
