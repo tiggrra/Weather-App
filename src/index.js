@@ -31,8 +31,8 @@ function displayWeather(response) {
     let currentCondition = response.data.weather[0].main;
     let currentConditionDescr = response.data.weather[0].description;
     let currentHumidity = response.data.main.humidity;
-    let h1 = document.querySelector("h1");
-    h1.innerHTML = (`${currentCity}, ${currentCountry}`);
+    let dispCity = document.querySelector("#city");
+    dispCity.innerHTML = (`${currentCity}, ${currentCountry}`);
     let dispTemp = document.querySelector("#current-temp");
     dispTemp.innerHTML = (`${celsiusTemp}`);
     let dispCondition = document.querySelector("#condition");
