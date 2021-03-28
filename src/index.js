@@ -22,10 +22,10 @@ axios.get(apiUrlCurrent).then(displayWeather);
 // WEATHER DISPLAY
 
 function displayWeather(response) {
-    
+    celsiusTemp = Math.round(response.data.main.temp);
+    celsiusWind = Math.round(response.data.wind.speed*3.6);
+
     // main data
-    let celsiusTemp = Math.round(response.data.main.temp);
-    let celsiusWind = Math.round(response.data.wind.speed*3.6);
     let currentCity = response.data.name;
     let currentCountry = response.data.sys.country;
     let currentCondition = response.data.weather[0].main;
@@ -40,6 +40,11 @@ function displayWeather(response) {
     dispHumidity.innerHTML = (`${currentHumidity}`);
     let dispWind = document.querySelector("#wind");
     dispWind.innerHTML = (`${celsiusWind}`);
+    let dispWindTag = document.querySelector("#wind-tag");
+    dispWindTag.innerHTML = "km/h"
+
+    fConversion.classList.remove("active");
+    cConversion.classList.add("active");
 }
 
 // current location button response
@@ -77,3 +82,42 @@ function displayCityAndWeather(event) {
     let apiUrlCurrent = `${apiEndpointCurrent}?q=${city}&units=${units}&appid=${apiKey}`;
     axios.get(apiUrlCurrent).then(displayWeather);
         }
+
+// convert C to F
+
+function convertToF(event) {
+    event.preventDefault();
+    let currentCTemp = document.querySelector("#current-temp");
+    let currentWind = document.querySelector("#wind");
+    let currentWindTag = document.querySelector("#wind-tag");
+    let fTemp = (celsiusTemp * 9/5) + 32;
+    let fWind = (celsiusWind / 1.609);
+    currentCTemp.innerHTML = Math.round(fTemp);
+    currentWind.innerHTML = Math.round(fWind);
+    currentWindTag.innerHTML = "mph";
+
+    cConversion.classList.remove("active");
+    fConversion.classList.add("active");
+    }
+
+function convertToC(event) {
+    event.preventDefault();
+    let currentCTemp = document.querySelector("#current-temp");
+    let currentWind = document.querySelector("#wind");
+    let currentWindTag = document.querySelector("#wind-tag");
+    currentCTemp.innerHTML = celsiusTemp;
+    currentWind.innerHTML = celsiusWind;
+    currentWindTag.innerHTML = "km/h";
+
+    fConversion.classList.remove("active");
+    cConversion.classList.add("active");
+}
+
+let celsiusTemp = null;
+let celsiusWind = null;
+
+let fConversion = document.querySelector("#convert-to-f");
+fConversion.addEventListener("click", convertToF);
+
+let cConversion = document.querySelector("#convert-to-c");
+cConversion.addEventListener("click", convertToC);
