@@ -45,7 +45,7 @@ function displayWeather(response) {
 
     fConversion.classList.remove("active");
     cConversion.classList.add("active");
-
+ 
     //define icons
     // if the API icon list changes it will be necessary to adjust the object
      
@@ -125,7 +125,7 @@ function displayWeather(response) {
         let weatherIcon = weatherIcons[`${currentCondition}`].night;
         dispIcon.classList.add("fas", `${weatherIcon}`);
             }
-            
+
     // precipitation
     let dispPrecipitation = document.querySelector("#precipitation");
         
@@ -174,7 +174,16 @@ function displayCityAndWeather(event) {
     let apiEndpointCurrent = "https://api.openweathermap.org/data/2.5/weather";
     let units = "metric";
     let apiUrlCurrent = `${apiEndpointCurrent}?q=${city}&units=${units}&appid=${apiKey}`;
-    axios.get(apiUrlCurrent).then(displayWeather);
+    axios.get(apiUrlCurrent).catch(function(error) {
+        if (error.response) {
+            let message = document.querySelector("#message");
+            message.innerHTML = `Sorry, this location couldn't be found! Please try another location in your area.`;
+        } else {
+        displayWeather();
+        }; 
+        })
+        message.innerHTML = ``; 
+        axios.get(apiUrlCurrent).then(displayWeather);
         }
 
 // convert C to F
