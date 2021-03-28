@@ -66,6 +66,10 @@ h2 {
   font-weight: normal;
 }
 
+#condition {
+  text-transform: capitalize;
+}
+
 hr {
   color: #919ca4;
   margin: 10px 0;

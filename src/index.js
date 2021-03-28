@@ -7,8 +7,8 @@ let minute = ("0"+now.getMinutes()).slice(-2);
 let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let weekday = weekdays[now.getDay()];
 
-let h2 = document.querySelector("h2");
-h2.innerHTML = (`${weekday}, ${hour}:${minute}`);
+let timestamp = document.querySelector("#timestamp");
+timestamp.innerHTML = (`${weekday}, ${hour}:${minute}`);
 
 // default location upon page load
 
@@ -29,13 +29,14 @@ function displayWeather(response) {
     let currentCity = response.data.name;
     let currentCountry = response.data.sys.country;
     let currentCondition = response.data.weather[0].main;
+    let currentConditionDescr = response.data.weather[0].description;
     let currentHumidity = response.data.main.humidity;
     let h1 = document.querySelector("h1");
     h1.innerHTML = (`${currentCity}, ${currentCountry}`);
     let dispTemp = document.querySelector("#current-temp");
     dispTemp.innerHTML = (`${celsiusTemp}`);
     let dispCondition = document.querySelector("#condition");
-    dispCondition.innerHTML = (`${currentCondition}`)
+    dispCondition.innerHTML = (`${currentConditionDescr}`);
     let dispHumidity = document.querySelector("#humidity");
     dispHumidity.innerHTML = (`${currentHumidity}`);
     let dispWind = document.querySelector("#wind");
@@ -132,7 +133,6 @@ function displayWeather(response) {
     if (currentCondition === "Rain") {
         let currentRain = Math.round(response.data.rain["1h"]*10)/10;
         dispPrecipitation.innerHTML = (`${currentRain}`);
-        console.log(currentRain);
             } else if (currentCondition === "Snow") {
                 let currentSnow = Math.round(response.data.snow["1h"]*10)/10;
                 dispPrecipitation.innerHTML = (`${currentSnow}`);
