@@ -45,6 +45,86 @@ function displayWeather(response) {
 
     fConversion.classList.remove("active");
     cConversion.classList.add("active");
+
+    //define icons
+    // if the API icon list changes it will be necessary to adjust the object
+     
+    let weatherIcons = {
+        "Clear": {
+            "day": "fa-sun",
+            "night": "fa-moon"
+        },
+        "Clouds": {
+            "day": "fa-cloud",
+            "night": "fa-cloud"
+        },
+        "Rain": {
+            "day": "fa-cloud-showers-heavy",
+            "night": "fa-cloud-showers-heavy"  
+        },
+        "Drizzle": {
+            "day": "fa-cloud-rain",
+            "night": "fa-cloud-rain"
+        },
+        "Thunderstorm": {
+            "day": "fa-bolt",
+            "night": "fa-bolt"  
+        },
+        "Snow": {
+            "day": "fa-snowflake",
+            "night": "fa-snowflake"           
+        },
+        "Haze": {
+            "day": "fa-smog",
+            "night": "fa-smog" 
+        },
+        "Mist": {
+            "day": "fa-smog",
+            "night": "fa-smog" 
+        },
+        "Smoke": {
+            "day": "fa-smog",
+            "night": "fa-smog" 
+        },
+        "Dust": {
+            "day": "fa-smog",
+            "night": "fa-smog" 
+        },
+        "Fog": {
+            "day": "fa-smog",
+            "night": "fa-smog" 
+        },
+        "Sand": {
+            "day": "fa-smog",
+            "night": "fa-smog" 
+        },
+        "Ash": {
+            "day": "fa-smog",
+            "night": "fa-smog" 
+        },
+        "Squall": {
+            "day": "fa-wind",
+            "night": "fa-wind" 
+        },
+        "Tornado": {
+            "day": "fa-exclamation-triangle",
+            "night": "fa-exclamation-triangle" 
+        }
+    }
+
+    // change icon
+    let sunrise = new Date(response.data.sys.sunrise*1000);
+    let sunset = new Date(response.data.sys.sunset*1000);
+    let dispIcon = document.getElementById("weather-icon");
+    dispIcon.removeAttribute("class");
+
+    if (now > sunrise && now < sunset) {
+    let weatherIcon = weatherIcons[`${currentCondition}`].day;
+    dispIcon.classList.add("fas", `${weatherIcon}`);
+        } else {
+        let weatherIcon = weatherIcons[`${currentCondition}`].night;
+        dispIcon.classList.add("fas", `${weatherIcon}`);
+            }
 }
 
 // current location button response

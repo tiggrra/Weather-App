@@ -102,6 +102,10 @@ a.active:hover {
   cursor: default;
 }
 
+.fas {
+  font-size: 50px;
+}
+
 .weather-parameters p {
   margin: 0;
   line-height: 1.5;
