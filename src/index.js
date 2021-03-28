@@ -130,11 +130,11 @@ function displayWeather(response) {
     let dispPrecipitation = document.querySelector("#precipitation");
         
     if (currentCondition === "Rain") {
-        let currentRain = Math.round(response.data.rain["1h"]).toFixed(1);
+        let currentRain = Math.round(response.data.rain["1h"]*10)/10;
         dispPrecipitation.innerHTML = (`${currentRain}`);
         console.log(currentRain);
             } else if (currentCondition === "Snow") {
-                let currentSnow = Math.round(response.data.snow["1h"]).toFixed(1);
+                let currentSnow = Math.round(response.data.snow["1h"]*10)/10;
                 dispPrecipitation.innerHTML = (`${currentSnow}`);
                     } else {
                         dispPrecipitation.innerHTML = "0";
